@@ -1,5 +1,10 @@
 ****
-All projects have their respective branches
+Project done for database course at the Warsaw Institute Of Technology
 ****
-Documentation can be found in docs branch
+SQL code can be found in the .pdf file
 ****
+Descriptions are provided
+****
+Not proud of triggers
+****
+All creadit goes to @Jan Chabik
