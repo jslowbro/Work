@@ -1,5 +1,4 @@
 ****
-All projects have their respective branches
+All projects have their respective branches. Documentation for them can be found in this branch
 ****
-Documentation can be found in docs branch
-****
+All credit goes to Jan Chabik & Friends mentioned in the respective projects
