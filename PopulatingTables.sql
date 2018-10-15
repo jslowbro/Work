@@ -1,0 +1,93 @@
+/*POPULATING TABLES */
+INSERT INTO certification
+VALUES('cardio1','Mlodszy kardiolog'),
+('cardio2','Sredni kardiolog'),
+('cardio3','starszy kardiolog'),
+('dentist1','Mlodszy dentysta'),
+('dentist2','Sredni dentysta'),
+('dentist3','Starszy dentysta'),
+('uro1','Mlodszy urolog'),
+('uro2','Sredni urolog'),
+('uro3','Starszy urolog'),
+('endo1','Mlodszy endokrynolog'),
+('endo2','Sredni endokrynolog'),
+('endo3','Starszy endokrynolog')
+INSERT INTO proceduretype
+VALUES('Przeszczep serca i wstawienie zywego serca',6,0.0,0),
+('Przeszczep serca i wstawienie sztucznego serca',6,0.0,0),
+('Wstawienie bypassow',10,0.0,0),
+('Wyciecie nerki',3,0.0,0),
+('Przeszczep pluca',4,0.0,0),
+('Wstawienie sztucznej kosci',2,0.0,0),
+('Usuniecie drzazgi',1,0.0,0),
+('Wyciagniecie kleszcza',1,0.0,0),
+('Zalozenie gipsu',1,0.0,0),
+('Usuniecie raka mozgu',8,0.0,0),
+('Terapia ultradzwiekami i krysztalami X',0,0.0,0),
+('Rezonans magnetyczny i wyciecie wyroska robaczkowego',6,0.0,0)
+INSERT INTO department
+VALUES('Kardiologia', 40, 40),
+('OIOM', 20, 20),
+('Urologia', 30, 30),
+('Stomatologia', 20, 20),
+('Medycyna alternatywna', 10, 10),
+('Onkologia', 10, 10)
+INSERT INTO room
+VALUES(101,15,15,1),
+(102,15,15,1),
+(103,10,10,1),
+(201,10,10,2),
+(202,10,10,2),
+(301,15,15,3),
+(302,15,15,3),
+(401,20,20,4),
+(501,10,10,5),
+(601,10,10,6)
+INSERT INTO medicalpersonel
+VALUES('Jan','Chabik',GETDATE(), NULL,1,'cardio1'),
+('Jakub','Chabik',GETDATE(), NULL,1,'cardio2'),
+('Anna','Chabik',GETDATE(), NULL,1,'cardio2'),
+('Emilia','Chabik',GETDATE(), NULL,1,'cardio3'),
+('Stanis³aw','Chabik',GETDATE(), NULL,2,'dentist1'),
+('Ewa','Chabik',GETDATE(), NULL,2,'dentist2'),
+('Magda','Kowalski',GETDATE(), NULL,3,'dentist3'),
+('Konrad','Kowalsi',GETDATE(), NULL,4,'uro1'),
+('Marcin','Malinowski',GETDATE(), NULL,4,'uro2'),
+('Jan','Malinowski',GETDATE(), NULL,4,'uro3'),
+('Anna','Malinowski',GETDATE(), NULL,5,'uro3'),
+('Dominika','Rydz',GETDATE(), NULL,5,'endo1'),
+('Samuel','Rydz',GETDATE(), NULL,5,'endo2'),
+('Ryszard','Wojak',GETDATE(), NULL,6,'endo1'),
+('Monika','Wojak',GETDATE(), NULL,6,'endo3')
+INSERT INTO procedurelog
+VALUES('Zabieg na kobiecie 80L. Zalecana szczegolna ostroznosc','20180619 10:00:00
+AM',0,1,1),
+('Zabieg na kobiecie 80L. Zalecana szczegolna ostroznosc','20180619 10:00:00 AM',0,1,2),
+('Zabieg na kobiecie 84L. Zalecana szczegolna ostroznosc','20180619 10:00:00 AM',0,2,3),
+('Zabieg na kobiecie 30L. Dobry stan pacjenta.','20180619 10:00:00 AM',0,2,3),
+('Zabieg na kobiecie 50L. Duze zmiany w prawym plucu','20180619 10:00:00 AM',0,3,4),
+('Zabieg na kobiecie 40L. Dobry stan pacjenta','20180619 10:00:00 AM',0,4,5),
+('Zabieg na kobiecie 18L. Z³y stan lewej zrenicy','20180619 10:00:00 AM',0,5,6),
+('Zabieg na kobiecie 10L. Zalecana szczegolna ostroznosc','20180619 10:00:00 AM',0,6,7),
+('Zabieg na mezczyznie 80L. Zalecana szczegolna ostroznosc','20180619 10:00:00 AM',0,6,8),
+('Zabieg na mezczyznie 90L. Zalecana szczegolna ostroznosc','20180619 10:00:00 AM',0,6,9),
+('Zabieg na mezczyznie 50L. Zly stan trzustki','20180619 10:00:00 AM',0,7,10),
+('Zabieg na mezczyznie 53L. Dobry stan pacjenta','20180619 10:00:00 AM',0,8,11),
+('Zabieg na mezczyznie 81L. Zalecana szczegolna ostroznosc. Bardzo zly stan
+tchawicy','20180619 10:00:00 AM',0,9,12),
+('Zabieg na mezczyznie 15L. Dobry stan pacjenta','20180619 10:00:00 AM',0,10,13),
+('Zabieg na mezczyznie 40L. Zly stan jedynek i siekaczy','20180619 10:00:00 AM',0,11,14),
+('Zabieg na mezczyznie 42L. Krzywe zeby','20180619 10:00:00 AM',0,11,14)
+INSERT INTO patient
+VALUES(1234567890,'Jan','Czarny', GETDATE(), NULL, 101, 1, 1),
+(123,'Grzegorz','Riv', GETDATE(), NULL, 102, 2, 2),
+(12345,'Apu','Humbo', GETDATE(), NULL, 103, 3, 3),
+(12345678,'Homer','Simpson', GETDATE(), NULL, 201, 4, 4),
+(123456,'Marge','Simpson', GETDATE(), NULL, 201, 4, 6),
+(1234567,'Bart','Simpson', GETDATE(), NULL, 201, 5, 8),
+(12,'Lisa','Simpson', GETDATE(), NULL, 202, 6, 9),
+(1234,'Seymour','Skinner', GETDATE(), NULL, 301, 7, 10),
+(123456711,'Maggie','Simpson', GETDATE(), NULL, 302, 8, 11),
+(123450000,'Jimbo','Jones', GETDATE(), NULL, 401, 9, 12),
+(1200000,'Crabapple','Dog', GETDATE(), NULL, 501, 10, 13),
+(123400,'Millhouse','Manastorm', GETDATE(), NULL, 601, 11, 15)

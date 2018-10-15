@@ -1,10 +1,10 @@
 ****
 Project done for database course at the Warsaw Institute Of Technology
 ****
-SQL code can be found in the .pdf file
+SQL code can be found in the .pdf file as well as additional .sql  files
 ****
-Descriptions are provided
+Recommend readign the .pdf file for better understanding of code
 ****
-Not proud of triggers
+Not very proud of triggers
 ****
 All creadit goes to @Jan Chabik
