@@ -1,0 +1,5 @@
+Jan	Chabik	654346235	sample	true
+Adam 	Kulczuk	324364329	sample	false
+Agnieszka 	Błaszkowska	666487298	sample	false
+Jarosław 	Kaczyński	333333111	sample	false
+Zygmunt	Stasibór	123456789	sample	false
