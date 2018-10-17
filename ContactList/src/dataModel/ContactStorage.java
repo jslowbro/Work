@@ -139,18 +139,22 @@ public class ContactStorage {
         try {
             Connection connection = DriverManager.getConnection(filePath);
             String query = "INSERT INTO contacts (name,surname,number,favourite,photo) VALUES(?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(query);
+            //Statement deleteStatement = connection.createStatement();
+            //deleteStatement.execute("DELETE * FROM contacts");
+            //deleteStatement.close();
+            PreparedStatement insertStatement = connection.prepareStatement(query);
+
 
             for(Contact contact : contactObservableList){
                 Boolean fav = new Boolean(contact.isFavourite());
-                statement.setString(1, contact.getName());
-                statement.setString(2, contact.getSurname());
-                statement.setString(3, contact.getNumber());
-                statement.setString(4, fav.toString());
-                statement.setString(5, contact.getPhotoPath());
-                statement.execute();
+                insertStatement.setString(1, contact.getName());
+                insertStatement.setString(2, contact.getSurname());
+                insertStatement.setString(3, contact.getNumber());
+                insertStatement.setString(4, fav.toString());
+                insertStatement.setString(5, contact.getPhotoPath());
+                insertStatement.execute();
             }
-            statement.close();
+            insertStatement.close();
             connection.close();
         } catch (SQLException e) {
             System.out.println("Hello from contacts storage save DB "+e.getMessage());
