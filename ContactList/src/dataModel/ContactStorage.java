@@ -9,6 +9,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.*;
 import java.util.Iterator;
 
 public class ContactStorage {
@@ -23,8 +24,10 @@ public class ContactStorage {
     private static final String PHOTO = "photo";
 
 
+
     private ObservableList<Contact> contactObservableList = FXCollections.observableArrayList();
     private String filePath;
+    private String loadtype;
 
     public static ContactStorage getInstance() {
         return instance;
@@ -32,6 +35,7 @@ public class ContactStorage {
 
     private ContactStorage() {
         filePath = "defaultpath.xml";
+        loadtype = "default";
     }
 
     public ObservableList<Contact> getContactObservableList() {
@@ -50,6 +54,13 @@ public class ContactStorage {
         this.filePath = filePath;
     }
 
+    public String getLoadtype() {
+        return loadtype;
+    }
+
+    public void setLoadtype(String loadtype) {
+        this.loadtype = loadtype;
+    }
 
     public void loadContacts() throws IOException {
         contactObservableList = FXCollections.observableArrayList();
@@ -95,6 +106,54 @@ public class ContactStorage {
             if(writer != null ) {
                 writer.close();
             }
+        }
+    }
+
+    public void loadContactsDB() {
+        try{
+            Connection connection = DriverManager.getConnection(filePath);
+            Statement statement = connection.createStatement();
+
+            statement.execute("SELECT * FROM contacts");
+            ResultSet resultSet = statement.getResultSet();
+            boolean favourite;
+            while(resultSet.next()){
+                if(resultSet.getString("favourite").equals("true")) {
+                    favourite = true;
+                } else {
+                    favourite = false;
+                }
+                Contact contact = new Contact(resultSet.getString("name"), resultSet.getString("surname"),
+                        resultSet.getString("number"), resultSet.getString("photo"), favourite);
+                contactObservableList.add(contact);
+            }
+            resultSet.close();
+            statement.close();
+            connection.close();
+
+        }catch (SQLException e){
+            System.out.println("Hello from contacts storage "+e.getMessage());
+        }
+    }
+    public void saveContactsDB() {
+        try {
+            Connection connection = DriverManager.getConnection(filePath);
+            String query = "INSERT INTO contacts (name,surname,number,favourite,photo) VALUES(?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            for(Contact contact : contactObservableList){
+                Boolean fav = new Boolean(contact.isFavourite());
+                statement.setString(1, contact.getName());
+                statement.setString(2, contact.getSurname());
+                statement.setString(3, contact.getNumber());
+                statement.setString(4, fav.toString());
+                statement.setString(5, contact.getPhotoPath());
+                statement.execute();
+            }
+            statement.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("Hello from contacts storage save DB "+e.getMessage());
         }
     }
 

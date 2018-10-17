@@ -25,7 +25,8 @@
     <top>
         <MenuBar>
             <Menu text = "File">
-                <MenuItem text="Load contacts from xml" onAction="#handleLoadItems"/>
+                <MenuItem text="Load contacts from xml" onAction="#handleLoadItemsXML"/>
+                <MenuItem text="Load items from database" onAction="#handleLoadItemsDB"/>
             </Menu>
         </MenuBar>
     </top>

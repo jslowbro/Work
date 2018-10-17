@@ -19,7 +19,10 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+
+
 public class Controller {
+
 
     @FXML
     private ListView<Contact> contactListView;
@@ -207,7 +210,10 @@ public class Controller {
     }
 
     @FXML
-    private void handleLoadItems() {
+    private void handleLoadItemsXML() {
+        ContactStorage contactInstance = ContactStorage.getInstance();
+        saveWhenLoadingNew();
+        contactInstance.setLoadtype("XML");
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Load Contacts from XML file");
 
@@ -218,12 +224,35 @@ public class Controller {
         File file = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
 
         if(file!=null){
-            ContactStorage.getInstance().setFilePath(file.getPath());
-            ContactStorage.getInstance().loadContactsXML();
+            contactInstance.setFilePath(file.getPath());
+            contactInstance.loadContactsXML();
             contactListView.getSelectionModel().selectFirst();
         } else {
-            System.out.println("Load Contacts chooser was cancelled");
+            System.out.println("Load Contacts from XML chooser was cancelled");
         }
+    }
+    @FXML
+    private void handleLoadItemsDB(){
+        ContactStorage contactInstance = ContactStorage.getInstance();
+        saveWhenLoadingNew();
+        contactInstance.setLoadtype("Database");
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Load Contacts from  a database");
+
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Database", "*db")
+        );
+
+        File file = chooser.showOpenDialog(mainBorderPane.getScene().getWindow());
+
+        if(file!=null){
+            contactInstance.setFilePath("jdbc:sqlite:"+file.getPath());
+            contactInstance.loadContactsDB();
+            contactListView.getSelectionModel().selectFirst();
+        } else {
+            System.out.println("Load Contacts from database chooser was cancelled");
+        }
+
     }
 
     private Dialog<ButtonType> setUpDialog(String title, FXMLLoader loader){
@@ -261,6 +290,14 @@ public class Controller {
 
         }
 
+    }
+    private void saveWhenLoadingNew() {
+        ContactStorage contactInstance = ContactStorage.getInstance();
+        if(contactInstance.getLoadtype().equals("Database")){
+            contactInstance.saveContactsDB();
+        } else if(contactInstance.getLoadtype().equals("XML")) {
+            contactInstance.saveContactsXML();
+        }
     }
 
 
