@@ -298,6 +298,7 @@ public class Controller {
         } else if(contactInstance.getLoadtype().equals("XML")) {
             contactInstance.saveContactsXML();
         }
+        ContactStorage.getInstance().getContactObservableList().clear();
     }
 
 

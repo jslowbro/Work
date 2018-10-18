@@ -139,14 +139,12 @@ public class ContactStorage {
         try {
             Connection connection = DriverManager.getConnection(filePath);
             String query = "INSERT INTO contacts (name,surname,number,favourite,photo) VALUES(?, ?, ?, ?, ?)";
-            //Statement deleteStatement = connection.createStatement();
-            //deleteStatement.execute("DELETE * FROM contacts");
-            //deleteStatement.close();
+            Statement deleteStatement = connection.createStatement();
+            deleteStatement.execute("DELETE FROM contacts");
+            deleteStatement.close();
             PreparedStatement insertStatement = connection.prepareStatement(query);
-
-
             for(Contact contact : contactObservableList){
-                Boolean fav = new Boolean(contact.isFavourite());
+                Boolean fav = contact.isFavourite();
                 insertStatement.setString(1, contact.getName());
                 insertStatement.setString(2, contact.getSurname());
                 insertStatement.setString(3, contact.getNumber());
