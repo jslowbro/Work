@@ -62,53 +62,6 @@ public class ContactStorage {
         this.loadtype = loadtype;
     }
 
-    public void loadContacts() throws IOException {
-        contactObservableList = FXCollections.observableArrayList();
-        Path path = Paths.get(filePath);
-        BufferedReader reader = Files.newBufferedReader(path);
-
-        String input;
-
-        try {
-            while((input = reader.readLine()) != null) {
-                String[] contactPieces = input.split("\t");
-                boolean favourite = false;
-                if(contactPieces[4].equals("true")){
-                    favourite=true;
-                }
-
-                Contact contact = new Contact(contactPieces[0],contactPieces[1], contactPieces[2], contactPieces[3], favourite);
-
-                contactObservableList.add(contact);
-
-            }
-        } finally {
-            if(reader !=null) {
-                reader.close();
-            }
-
-        }
-    }
-
-    public void storeContacts() throws IOException {
-        Path path = Paths.get(filePath);
-
-        BufferedWriter writer = Files.newBufferedWriter(path);
-
-        try {
-            Iterator<Contact> iterator = contactObservableList.iterator();
-            while (iterator.hasNext()) {
-                Contact contact = iterator.next();
-                writer.write(String.format("%s\t%s\t%s\t%s\t%s", contact.getName(), contact.getSurname(), contact.getNumber(), contact.getPhotoPath(), contact.isFavourite()));
-                writer.newLine();
-            }
-        } finally {
-            if(writer != null ) {
-                writer.close();
-            }
-        }
-    }
-
     public void loadContactsDB() {
         try{
             Connection connection = DriverManager.getConnection(filePath);
@@ -132,7 +85,7 @@ public class ContactStorage {
             connection.close();
 
         }catch (SQLException e){
-            System.out.println("Hello from contacts storage "+e.getMessage());
+            System.out.println(getClass().toString()+e.getMessage());
         }
     }
     public void saveContactsDB() {
@@ -155,18 +108,17 @@ public class ContactStorage {
             insertStatement.close();
             connection.close();
         } catch (SQLException e) {
-            System.out.println("Hello from contacts storage save DB "+e.getMessage());
+            System.out.println( getClass().toString()+e.getMessage());
         }
     }
 
     public void loadContactsXML() {
         try {
-            // First, create a new XMLInputFactory
+
             XMLInputFactory inputFactory = XMLInputFactory.newInstance();
-            // Setup a new eventReader
+
             InputStream in = new FileInputStream(filePath);
             XMLEventReader eventReader = inputFactory.createXMLEventReader(in);
-            // read the XML document
             Contact contact = null;
 
             while (eventReader.hasNext()) {
@@ -174,7 +126,6 @@ public class ContactStorage {
 
                 if (event.isStartElement()) {
                     StartElement startElement = event.asStartElement();
-                    // If we have a contact item, we create a new contact
                     if (startElement.getName().getLocalPart().equals(CONTACT)) {
                         contact = new Contact();
                         continue;
@@ -225,7 +176,6 @@ public class ContactStorage {
 
                 }
 
-                // If we reach the end of a contact element, we add it to the list
                 if (event.isEndElement()) {
                     EndElement endElement = event.asEndElement();
                     if (endElement.getName().getLocalPart().equals(CONTACT)) {
@@ -240,7 +190,7 @@ public class ContactStorage {
             }
         }
         catch (FileNotFoundException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         catch (XMLStreamException e) {
             e.printStackTrace();
@@ -250,15 +200,15 @@ public class ContactStorage {
     public void saveContactsXML() {
 
         try {
-            // create an XMLOutputFactory
+
             XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
-            // create XMLEventWriter
+
             XMLEventWriter eventWriter = outputFactory
                     .createXMLEventWriter(new FileOutputStream(filePath));
-            // create an EventFactory
+
             XMLEventFactory eventFactory = XMLEventFactory.newInstance();
             XMLEvent end = eventFactory.createDTD("\n");
-            // create and write Start Tag
+
             StartDocument startDocument = eventFactory.createStartDocument();
             eventWriter.add(startDocument);
             eventWriter.add(end);
@@ -292,12 +242,12 @@ public class ContactStorage {
 
         XMLEvent end = eventFactory.createDTD("\n");
 
-        // create contact open tag
+
         StartElement configStartElement = eventFactory.createStartElement("",
                 "", CONTACT);
         eventWriter.add(configStartElement);
         eventWriter.add(end);
-        // Write the different nodes
+
         createNodeXML(eventWriter, FIRST_NAME, contact.getName());
         createNodeXML(eventWriter, LAST_NAME, contact.getSurname());
         createNodeXML(eventWriter, PHONE_NUMBER, contact.getNumber());
@@ -319,14 +269,14 @@ public class ContactStorage {
         XMLEventFactory eventFactory = XMLEventFactory.newInstance();
         XMLEvent end = eventFactory.createDTD("\n");
         XMLEvent tab = eventFactory.createDTD("\t");
-        // create Start node
+
         StartElement sElement = eventFactory.createStartElement("", "", name);
         eventWriter.add(tab);
         eventWriter.add(sElement);
-        // create Content
+
         Characters characters = eventFactory.createCharacters(value);
         eventWriter.add(characters);
-        // create End node
+
         EndElement eElement = eventFactory.createEndElement("", "", name);
         eventWriter.add(eElement);
         eventWriter.add(end);

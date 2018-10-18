@@ -46,9 +46,6 @@ public class Controller {
     private CheckBox favouritesCheckBox;
 
     @FXML
-    private Image contactImage;
-
-    @FXML
     private ImageView contactImageView;
 
 
@@ -277,20 +274,7 @@ public class Controller {
         return fxmlLoader;
     }
 
-    private void repaintFavouritesButton(Contact contact){
-        if(contact.isFavourite()){
 
-            favouritesCheckBox.setStyle("-fx-background-color: darkgrey");
-            favouritesCheckBox.setStyle("-fx-text-fill: black");
-            favouritesCheckBox.setText("Remove from favourites");
-        } else {
-            favouritesCheckBox.setStyle("-fx-background-color: darkred");
-            favouritesCheckBox.setStyle("-fx-text-fill: white");
-            favouritesCheckBox.setText("Favourites");
-
-        }
-
-    }
     private void saveWhenLoadingNew() {
         ContactStorage contactInstance = ContactStorage.getInstance();
         if(contactInstance.getLoadtype().equals("Database")){
