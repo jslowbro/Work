@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+    <html lang="en" ng-app="AngularApp">
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Angular App</title>
+
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+
+
+        </head>
+        <body ng-controller="mainCtrl as vm">
+
+            <button class="btn btn-primary" ng-click="vm.alertMe()"> Click me to get an alert </button>
+
+
+            <h3>List of fruits </h3>
+            <input type="text" ng-model="vm.search">
+            <posts_list></posts_list>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"></script>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.js" >  </script>
+            <script  src="angularApp.js" charset="utf-8" > </script>
+            <script src="posts_list/posts_list.component.js" charset="utf-8"> </script>
+
+
+        </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </html>

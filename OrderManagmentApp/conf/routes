@@ -1,0 +1,40 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index
+# An example controller showing how to use dependency injection
+GET     /count                      controllers.CountController.count
+# An example controller showing how to write asynchronous code
+GET     /message                    controllers.AsyncController.message
+
+
+
+# Actually some important code
+
+GET     /jstest                     controllers.HomeController.jstest()
+
+GET     /items                      controllers.HomeController.items()
+
++ nocrsf
+GET     /listitems                  controllers.HomeController.listItems1()
+
++ nocrsf
+GET     /listitems2                 controllers.HomeController.listItems2()
+
++ nocsrf
+POST    /postitems                  controllers.HomeController.postitems()
+
+GET     /createItem                 controllers.HomeController.createItemJson()
+
+GET     /assets/*file               controllers.Assets.versioned(file)
+
+#GET     /main.js                    controllers.HomeController.getmainJs()
+
+
+
+# Map static resources from the /public folder to the /assets URL path
+#GET     /assets/*file               controllers.Assets.versioned(file)
+
+
