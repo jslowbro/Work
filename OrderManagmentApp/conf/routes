@@ -13,7 +13,7 @@ GET     /message                    controllers.AsyncController.message
 
 # Actually some important code
 
-GET     /jstest                     controllers.HomeController.jstest()
+GET     /showOrderForm              controllers.HomeController.showOrderForm()
 
 GET     /items                      controllers.HomeController.items()
 

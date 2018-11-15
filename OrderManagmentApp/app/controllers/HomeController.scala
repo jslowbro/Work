@@ -73,8 +73,9 @@ class HomeController @Inject()(cc: ControllerComponents, af: AssetsFinder) (impl
     Ok(views.html.Home.welcome(name,lastName))
   }
 
-  def jstest() = Action {
-    Ok(views.html.Home.sampleJavaScript(new util.ArrayList[Item]()))
+
+  def showOrderForm() = Action {
+    Ok(views.html.orderManagment.orderForm())
   }
 
   def items() = Action {
