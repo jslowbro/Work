@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <title> New Order </title>
+        <style>
+            table, th , td  {
+                border: 1px solid grey;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+            table tr:nth-child(odd) {
+                background-color: #f1f1f1;
+            }
+            table tr:nth-child(even) {
+                background-color: #ffffff;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div ng-app="OrderFormApp" ng-controller="mainCtrl">
+            <form novalidate>
+                Name:<br>
+                <input type="text" ng-model="user.name"><br>
+                Age:<br>
+                <input type="number" ng-model="user.age"><br>
+                Color: <br>
+                <select ng-model="colorValue" ng-options="x for x in colors"> </select><br>
+                Size : <br>
+                <input ng-model="sizeValue" type="radio" name="size" id="s" value="S" > S
+                <input ng-model="sizeValue" type="radio" name="size" id="m" value="M"> M
+                <input ng-model="sizeValue" type="radio" name="size" id="l" value="L"> L
+                <input ng-model="sizeValue" type="radio" name="size" id="xl" value="XL" > XL
+                <br><br>
+                <button ng-click="addItem()">Add Item</button>
+                <br><br>
+                <button ng-click="testData()">Test Data</button>
+                <br><br>
+                <button ng-click="sendData()"> Send Request </button>
+                <br><br>
+            </form>
+
+            <table>
+                <tr>
+                    <th> Name </th>
+                    <th> Age </th>
+                    <th> Color </th>
+                    <th> Size </th>
+                </tr>
+                <tr ng-repeat="x in itemlist">
+                    <td>{{x.name}}</td>
+                    <td>{{x.age}}</td>
+                    <td>{{x.color}}</td>
+                    <td>{{x.size}}</td>
+                </tr>
+            </table>
+
+
+        </div>
+
+        <script src="@routes.Assets.versioned("javascripts/orderFormController.js")"></script>
+
+    </body>
+</html>

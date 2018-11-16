@@ -1,81 +1,65 @@
-var app = new function() {
-    this.el = document.getElementById('items');
-    this.items = [];
-    this.Count = function(data) {
-        var el   = document.getElementById('counter');
-        var name = 'item';
-        if (data) {
-            if (data > 1) {
-                name = 'items';
-            }
-            el.innerHTML = data + ' ' + name ;
-        } else {
-            el.innerHTML = 'No ' + name;
-        }
+var app = angular.module('OrderFormApp', []);
+
+app.controller('mainCtrl', function($scope, $http) {
+
+    $scope.colors = ["RED", "BLUE", "GREEN"];
+    $scope.colorValue = "RED";
+    $scope.sizeList = ["S", "M", "L", "XL"];
+    $scope.sizeValue = "S";
+    $scope.master = {name: "", age: ""};
+
+    $scope.itemlist = [];
+
+    $scope.addItem = function() {
+        //pushing item on the list
+        var item = {name: angular.copy($scope.user.name),
+                    age: angular.copy($scope.user.age),
+                    size: angular.copy($scope.sizeValue),
+                    color: angular.copy($scope.colorValue)};
+
+        $scope.itemlist.push(item);
+        //clearing form
+        $scope.user = angular.copy($scope.master);
     };
 
-    this.FetchAll = function() {
-        var data = '';
-        if (this.items.length > 0) {
-            for (i = 0; i < this.items.length; i++) {
-                data += '<tr>';
-                data += '<td>' + this.items[i].name + '</td>';
-                data += '<td>' + this.items[i].age + '</td>';
-                data += '<td>' + this.items[i].color + '</td>';
-                data += '<td>' + this.items[i].size + '</td>';
-                data += '<td><button onclick="app.Delete(' + i + ')">Delete</button></td>';
-                data += '</tr>';
-            }
-        }
-        this.Count(this.items.length);
-        return this.el.innerHTML = data;
+    $scope.testData = function () {
+        console.log($scope.colorValue);
+        console.log($scope.sizeValue);
+        console.log($scope.user.name);
+        console.log($scope.user.age);
     };
-    this.Add = function () {
-        el1 = document.getElementById('add-name');
-        el2  = document.getElementById('add-age');
-        el3 = document.getElementById('add-color');
-        el4 = document.querySelector('input[name="size"]:checked');
-        // Get the value
-        var order = {
-            name: el1.value.toString().toUpperCase(),
-            age: el2.value,
-            color: el3.value.toString().toUpperCase(),
-            size: el4.value.toString().toUpperCase()
 
+    $scope.sendData = function () {
+        /*var req = {
+            method: 'POST',
+            url: 'http://localhost:9000/postitems',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify($scope.itemlist[0])
         };
-        if (order.name && order.age) {
-            // Add the new value
-            this.items.push(order);
-            // Reset input value
-            el1.value = '';
-            el2.value = '';
-            // Dislay the new list
-            this.FetchAll();
-        }
+        $http(req).then(function(){
+            console.log("Success")
+        }, function(){
+            console.log("Failure")
+        });*/
+        var xhr = new XMLHttpRequest();
+        var url = 'http://localhost:9000/postitems';
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState == 4 && xhr.status == 200) {
+                alert(xhr.responseText);
+            }
+        };
+        xhr.send(JSON.stringify($scope.itemlist[0]))
     };
 
-    this.Delete = function (item) {
-        // Delete the current row
-        this.items.splice(item, 1);
-        // Display the new list
-        this.FetchAll();
-    };
-    this.Clear = function () {
-        for (i = 0; i < this.items.length; i++) {
-            var a1 = this.items[i].name;
-            var a2 = this.items[i].age;
-            var a3 = this.items[i].color;
-            var a4 = this.items[i].size;
-        }
-        //var a = this.items[0].size;
-        //this.items[0].name = a;
-        //this.items = [];
-        this.items =[];
-        this.FetchAll();
-    }
 
-};
-app.FetchAll();
-function CloseInput() {
-    document.getElementById('spoiler').style.display = 'none';
+
+});
+
+
+function fetchAllElements() {
+
 }
