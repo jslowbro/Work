@@ -1,9 +1,10 @@
 package controllers
 
+import java.sql.Timestamp
 import java.util
 
 import javax.inject._
-import models.Item
+import models._
 import play.api.mvc._
 import services.DBO
 import play.api.libs.json
@@ -36,9 +37,12 @@ class HomeController @Inject()(cc: ControllerComponents, af: AssetsFinder) (impl
    * will be called when the application receives a `GET` request with
    * a path of `/`.
    */
-  implicit val jsonwriter = Json.writes[Item]
+  implicit val jsonwriterItem = Json.writes[Item]
 
-  implicit val jsonreader = Json.reads[Item]
+  implicit val jsonreaderItem = Json.reads[Item]
+
+  implicit val jsonwriterOrder = Json.writes[Order]
+
 
   def listItems1() = Action {
     val json = Json.toJson(itemlist)
@@ -55,10 +59,10 @@ class HomeController @Inject()(cc: ControllerComponents, af: AssetsFinder) (impl
     Ok(json)
   }
 
-  def postitems() = Action { implicit request =>
+  def postItems() = Action { implicit request =>
     val json  = request.body.asJson.get
-    val item = json.as[Item]
-    println(item + "  POST request actually working")
+    val list = json.as[List[Item]]
+    println(list + "\n  POST request actually working")
     Ok
   }
   def getmainJs()= Action {
@@ -83,14 +87,23 @@ class HomeController @Inject()(cc: ControllerComponents, af: AssetsFinder) (impl
     Ok(views.html.itemindex(list))
   }
 
+  def showListOfOrders = Action {
+    Ok(views.html.orderManagment.listOrders())
+  }
 
-  /*def reads(json: JsValue) : JsResult[Item] = {
-    val name: String = (json \ "name").as[String]
-    val age: Int = (json \ "age").as[Int]
-    val size: String = (json \ "size").as[String]
-    val color: String = (json \ "color").as[String]
-    JsSuccess(Item(name,age,size,color))
-  }*/
+  def getListOfOrders = Action {
+    //TODO
+    val list = List(
+      Order(1, new Timestamp(System.currentTimeMillis())),
+      Order(2, new Timestamp(System.currentTimeMillis())),
+      Order(3, new Timestamp(System.currentTimeMillis())),
+      Order(4, new Timestamp(System.currentTimeMillis()))
+    )
+    val json = Json.toJson(list)
+
+    Ok(json)
+
+  }
 
 
 }

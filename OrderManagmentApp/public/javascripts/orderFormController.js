@@ -2,13 +2,21 @@ var app = angular.module('OrderFormApp', []);
 
 app.controller('mainCtrl', function($scope, $http) {
 
+
+    //initializing all the data, might switch to pulling it from DB later
     $scope.colors = ["RED", "BLUE", "GREEN"];
     $scope.colorValue = "RED";
     $scope.sizeList = ["S", "M", "L", "XL"];
     $scope.sizeValue = "S";
     $scope.master = {name: "", age: ""};
-
     $scope.itemlist = [];
+
+    $scope.testData = function () {
+        console.log($scope.colorValue);
+        console.log($scope.sizeValue);
+        console.log($scope.user.name);
+        console.log($scope.user.age);
+    };
 
     $scope.addItem = function() {
         //pushing item on the list
@@ -22,44 +30,29 @@ app.controller('mainCtrl', function($scope, $http) {
         $scope.user = angular.copy($scope.master);
     };
 
-    $scope.testData = function () {
-        console.log($scope.colorValue);
-        console.log($scope.sizeValue);
-        console.log($scope.user.name);
-        console.log($scope.user.age);
-    };
+
 
     $scope.sendData = function () {
-        /*var req = {
+        //setting up the request
+        var req = {
             method: 'POST',
             url: 'http://localhost:9000/postitems',
             headers: {
                 'Content-Type': 'application/json'
             },
-            data: JSON.stringify($scope.itemlist[0])
+            data: JSON.stringify($scope.itemlist)
         };
+        //actual request
         $http(req).then(function(){
-            console.log("Success")
+            console.log("Successful POST Request")
         }, function(){
-            console.log("Failure")
-        });*/
-        var xhr = new XMLHttpRequest();
-        var url = 'http://localhost:9000/postitems';
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if(xhr.readyState == 4 && xhr.status == 200) {
-                alert(xhr.responseText);
-            }
-        };
-        xhr.send(JSON.stringify($scope.itemlist[0]))
+            console.log("Failed POST Request")
+
+        });
+        //clear items since they have been sent
+        $scope.itemlist = [];
     };
 
 
 
 });
-
-
-function fetchAllElements() {
-
-}
