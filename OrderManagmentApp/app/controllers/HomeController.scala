@@ -74,7 +74,7 @@ class HomeController @Inject()(cc: ControllerComponents, af: AssetsFinder) (impl
   }
 
   def items() = Action {
-    val list = DBO.list
+    val list = new util.ArrayList[Item]
     Ok(views.html.itemindex(list))
   }
 

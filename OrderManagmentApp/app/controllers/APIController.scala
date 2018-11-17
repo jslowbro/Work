@@ -6,9 +6,10 @@ import javax.inject.{Inject, Singleton}
 import models.{Item, Order}
 import play.api.libs.json.Json
 import play.api.mvc.{AbstractController, ControllerComponents}
+import services.DBO
 
 @Singleton
-class APIController @Inject() (cc: ControllerComponents, af: AssetsFinder) (implicit assetsFinder: AssetsFinder)
+class APIController @Inject()(cc: ControllerComponents, af: AssetsFinder, dbo: DBO)(implicit assetsFinder: AssetsFinder)
   extends AbstractController(cc)  {
 
   //handling Jsons of
@@ -20,7 +21,7 @@ class APIController @Inject() (cc: ControllerComponents, af: AssetsFinder) (impl
   implicit val jsonwriterOrder = Json.writes[Order]
 
 
-  //TODO
+  //TODO DBOOOOOOOOOOOOOOOOOOOOOOOO
   val itemlist = List(
     Item("Tom",20, "S", "BLUE"),
     Item("Tom",20, "M", "GREEN"),
@@ -58,17 +59,15 @@ class APIController @Inject() (cc: ControllerComponents, af: AssetsFinder) (impl
       Order(4, timestampString,items)
     )
     val json = Json.toJson(list)
-
     Ok(json)
   }
 
   def postListOfItems() = Action { implicit request =>
       //parsing Json to a list
       val json  = request.body.asJson.get
-      val list = json.as[List[Item]]
+      val list: List[Item] = json.as[List[Item]]
+      dbo.postItems(list)
 
-      //TODO delegate list to DBO
-      println(list + "\n  POST request actually working")
       Ok
   }
 
