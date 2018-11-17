@@ -2,7 +2,10 @@
 <html lang="en">
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
         <title> Show All Orders </title>
         <style>
@@ -22,16 +25,26 @@
 
     <body>
 
-        <div ng-app="ShowOrdersApp" ng-controller="mainCtrl">
-
+        <div ng-app="ShowOrdersApp" ng-controller="mainCtrl" class="container">
+            <br><br>
+            <button ng-click="getOrders()"> Show Orders </button>
+            <br><br>
             <table>
                 <tr>
-                    <th> Id </th>
-                    <th> Time and Date </th>
+                    <th > Orders </th>
                 </tr>
                 <tr ng-repeat="x in orderlist">
-                    <td>{{x.id}}</td>
-                    <td>{{x.timestamp}}</td>
+
+                    <td><label> No. {{x.id}} </label><br>
+                        <label> Date and Time : {{x.timestamp}} </label><br>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" > List of Items
+                                <span class="caret"></span></button><br>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ng-repeat="item in x">
+                                <a class="dropdown-item" style="display: block" ng-repeat="y in item track by $index">{{y.name}}  {{y.age}}  {{y.size}} {{y.color}}</a>
+                            </div></div>
+                    </td>
+
                 </tr>
             </table>
 

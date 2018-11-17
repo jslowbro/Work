@@ -13,25 +13,30 @@ GET     /message                    controllers.AsyncController.message
 
 # Actually some important code
 
-GET     /showOrderForm              controllers.HomeController.showOrderForm()
+
 
 GET     /items                      controllers.HomeController.items()
 
-+ nocrsf
-GET     /listitems                  controllers.HomeController.listItems1()
+
+
 
 + nocrsf
 GET     /listitems2                 controllers.HomeController.listItems2()
 
-+ nocsrf
-POST    /postitems                  controllers.HomeController.postItems()
-
 GET     /createItem                 controllers.HomeController.createItemJson()
 
+#Order Form Routes
+GET     /showOrderForm              controllers.HomeController.showOrderForm()
+
++ nocsrf
+POST    /postitems                  controllers.APIController.postListOfItems()
+
+#List of Orders Routes
 GET     /showlistOfOrders           controllers.HomeController.showListOfOrders()
 
-GET     /getListOfOrders            controllers.HomeController.getListOfOrders()
+GET     /getListOfOrders            controllers.APIController.getListOfOrders()
 
+GET     /getListOfItems/:id         controllers.APIController.getListOfItems(id: Int)
 
 #GET     /main.js                    controllers.HomeController.getmainJs()
 

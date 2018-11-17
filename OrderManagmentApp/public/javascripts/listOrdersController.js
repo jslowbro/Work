@@ -7,8 +7,10 @@ app.controller('mainCtrl', function($scope, $http) {
 
     $scope.orderlist = [];
 
+    $scope.colors = ["Sample1","Sample2","Sample3","Sample4"];
 
     $scope.getOrders = function () {
+        //prep the request
         var req = {
             method: 'GET',
             url: 'http://localhost:9000/getListOfOrders',
@@ -17,6 +19,7 @@ app.controller('mainCtrl', function($scope, $http) {
             }
 
         };
+        //send request
         $http(req).then(function(response){
             console.log("Successful GET Request");
             console.log(response.data);
@@ -26,18 +29,24 @@ app.controller('mainCtrl', function($scope, $http) {
         });
     };
 
-    $scope.getOrders();
 
+    $scope.getOrderDetails = function (id) {
+        console.log("You want to see the detals of order No." + id);
+        var req = {
+            method: 'GET',
+            url: 'http://localhost:9000/getListOfItems/' + id ,
+            headers: {
+                'Content-Type': 'application/json'
+            }
 
-
-
-
-
-
-
-
-
-
+        };
+        $http(req).then(function(response){
+            console.log("Successful GET Request");
+            console.log(response.data);
+        }, function(){
+            console.log("Failed GET Request")
+        });
+    };
 
 
 });

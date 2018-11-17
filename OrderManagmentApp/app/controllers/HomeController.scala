@@ -44,10 +44,6 @@ class HomeController @Inject()(cc: ControllerComponents, af: AssetsFinder) (impl
   implicit val jsonwriterOrder = Json.writes[Order]
 
 
-  def listItems1() = Action {
-    val json = Json.toJson(itemlist)
-    Ok(json)
-  }
   def listItems2() = Action {
     Ok(views.html.Home.jsonTesting())
   }
@@ -59,12 +55,7 @@ class HomeController @Inject()(cc: ControllerComponents, af: AssetsFinder) (impl
     Ok(json)
   }
 
-  def postItems() = Action { implicit request =>
-    val json  = request.body.asJson.get
-    val list = json.as[List[Item]]
-    println(list + "\n  POST request actually working")
-    Ok
-  }
+
   def getmainJs()= Action {
     Ok
   }
@@ -90,20 +81,5 @@ class HomeController @Inject()(cc: ControllerComponents, af: AssetsFinder) (impl
   def showListOfOrders = Action {
     Ok(views.html.orderManagment.listOrders())
   }
-
-  def getListOfOrders = Action {
-    //TODO
-    val list = List(
-      Order(1, new Timestamp(System.currentTimeMillis())),
-      Order(2, new Timestamp(System.currentTimeMillis())),
-      Order(3, new Timestamp(System.currentTimeMillis())),
-      Order(4, new Timestamp(System.currentTimeMillis()))
-    )
-    val json = Json.toJson(list)
-
-    Ok(json)
-
-  }
-
 
 }
