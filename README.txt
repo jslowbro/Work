@@ -5,8 +5,10 @@ Documentation can be found in docs branch
 ****
 This is my very first project using Scala, Play and AngularJS so feel free to point any mistakes. The app lets users
 choose multiple items(Not specified but I've decided it would be shoes) and order them. It also allows users to view all
-the previous orders. The template for this project was the starter play project which Play provides at it's website.
-
+the previous orders. 
+****
+The template for this project was the starter play project which Play provides at it's website. There are many 'leftover' files 
+I am hesitant to delete them since they might prove useful later. 
 ****
 ||||||SETUP||||||
 1. Setup the database server using the database script that can be found at sql-scripts directory. I recommend you 
