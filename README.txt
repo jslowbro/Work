@@ -22,7 +22,13 @@ stick with the deflaut server. I've used WAMPServer or MySQLWorkBench.
   default.username=root
   default.password=""
 3. Make sure to update sbt and check all the dependancies.
-4. Unless I've missed something you should be good to go. 
+4. Make sure to run the server on port :9000 since all of the GET/POST requests are set up that way.
+5. Run from the console. 
+- Go into the project directory and type following commands
+- sbt
+- compile
+- run
+6. Unless I've missed something you should be good to go. Enjoy
 ****
 All Credit goes to @JanChabik
 ****
