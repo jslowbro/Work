@@ -9,6 +9,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+
         <style>
             table, th , td  {
                 border: 1px solid grey;
@@ -29,11 +30,28 @@
         <div ng-app="OrderFormApp" ng-controller="mainCtrl" class="container">
             <div class="row">
                 <div class="col-sm-4" style="background-color:lightblue;">
-                    <form>
-                        Name:<br>
-                        <input type="text" ng-model="user.name"><br>
-                        Age:<br>
-                        <input type="number" ng-model="user.age"><br>
+                    <form name="myForm">
+                        @*<p> Name: <br>
+                        <input type="text" ng-model="user.name">
+                        <span style="color:red" ng-show="myForm.user.name.$dirty && myForm.user.name.$invalid">
+                        <span ng-show="myForm.user.name.$error.required">Username is required.</span></span><br>
+                        </p>*@
+                        <p>Name :<br>
+                        <input type="text" name="name" ng-model="name" ng-pattern="nameRegex" required><br>
+                            <span style="color:red" ng-show="myForm.name.$invalid">
+                                <span ng-show="myForm.name.$error.required"> Name is required. </span><br>
+                                <span ng-show="myForm.name.$invalid"> Name must: be a single word, start with a capital letter, have 2-30 characters, no numbers or special characters </span>
+                            </span>
+                        </p>
+
+                        <p> Age: <br>
+                        <input type="number" name="age" ng-model="age" min="{{minAge}}" max="{{maxAge}}" required><br>
+                            <span style="color:red" ng-show="myForm.age.$invalid">
+                                <span ng-show="myForm.age.$error.required"> Age is required.</span><br>
+                                <span ng-show="myForm.age.$invalid"> Age must be between 18-100 </span>
+                            </span>
+                        </p>
+
                         Color: <br>
                         <select ng-model="colorValue" ng-options="x for x in colors"> </select><br>
                         Size : <br>
@@ -44,7 +62,7 @@
                         <br><br>
                         <img ng-src="@routes.Assets.versioned("images/item_configs/{{sizeValue}}-{{colorValue}}.png")" alt="SIZE-COLOR">
                         <br><br>
-                        <button ng-click="addItem()" ng-disabled="canAddItem()">Add Item</button>
+                        <button ng-click="addItem()" ng-disabled="canAddItem() || myForm.name.$invalid || myForm.age.$invalid"> Add Item </button>
                         <br><br>
 
 
@@ -117,8 +135,6 @@
                                 <td> {{stock[3].quantity}} </td>
                             </tr>
                         </tbody>
-
-
 
                     </table>
                 </div>

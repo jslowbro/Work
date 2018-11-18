@@ -8,19 +8,25 @@ app.controller('mainCtrl', function($scope, $http) {
     $scope.colorValue = "RED";
     $scope.sizeValue = "S";
 
-    $scope.master = {name: "", age: ""};
+    $scope.minAge = 18;
+    $scope.maxAge = 100;
+
+    //Protecting the database
+    $scope.nameRegex = "^[A-Z]{1}[a-zA-Z]{1,30}$";
 
     $scope.itemlist = [];
     //just to fix the TypeError undefined caused by canAddItem
     $scope.stock = [{id: 999, size: "Inv", color: "Inv", quantity: 0}];
 
-
+    //init
+    $scope.name = "".trim();
+    $scope.age = "".trim();
 
 
     $scope.addItem = function() {
         //creating and pushing item on the list
-        var item = {name: angular.copy($scope.user.name),
-                    age: angular.copy($scope.user.age),
+        var item = {name: angular.copy($scope.name),
+                    age: angular.copy($scope.age),
                     size: angular.copy($scope.sizeValue),
                     color: angular.copy($scope.colorValue)};
 
@@ -30,7 +36,8 @@ app.controller('mainCtrl', function($scope, $http) {
         $scope.stock[index].quantity = $scope.stock[index].quantity-1;
 
         //clearing form
-        $scope.user = angular.copy($scope.master);
+        $scope.name = "".trim();
+        $scope.age = "".trim();
     };
 
     $scope.getStock = function () {
