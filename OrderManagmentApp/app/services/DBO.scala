@@ -7,6 +7,8 @@ import models.{Item, Order}
 import play.api.db._
 import play.api.mvc.{BaseController, ControllerComponents}
 
+import scala.collection.mutable.ListBuffer
+
 class DBO @Inject()(db: Database, val controllerComponents: ControllerComponents) extends BaseController {
 
   /*val list: List[Item] = new ArrayList[Item]*/
@@ -96,13 +98,46 @@ class DBO @Inject()(db: Database, val controllerComponents: ControllerComponents
 
   def getOrderList: List[Order] = {
     val conn = db.getConnection()
+    val tempOrderList = ListBuffer[Order]()
+    val finOrderList = ListBuffer[Order]()
+
+
 
     try {
+      //getting all Orders
+      val getAllOrdersQuery = "SELECT * FROM orders"
+      val getOrdersStatement = conn.createStatement()
+      val ordersResultSet = getOrdersStatement.executeQuery(getAllOrdersQuery)
+      while(ordersResultSet.next()){
+        val order = Order(ordersResultSet.getInt("id"), ordersResultSet.getTimestamp("timestamp").toString, List())
+        tempOrderList += order
+      }
+
+      //Assigning itemLists to each order
+      for(order <- tempOrderList){
+        //getting the itemlist assigned to an order
+        val prepGetItemsByOrderId = "SELECT * FROM `orders` JOIN `items` ON order_id = orders.id WHERE orders.id = ?"
+        val getItemsByOrderIdStmnt = conn.prepareStatement(prepGetItemsByOrderId)
+        getItemsByOrderIdStmnt.setInt(1,order.id)
+        val itemsResultSet = getItemsByOrderIdStmnt.executeQuery()
+        //populating the list
+        val itemList: ListBuffer[Item] = ListBuffer[Item]()
+        while(itemsResultSet.next()){
+          val item: Item = Item(itemsResultSet.getString("name"), itemsResultSet.getInt("age"), itemsResultSet.getString("size"), itemsResultSet.getString("color"))
+          itemList += item
+        }
+        //adding the Order with the correct item List
+        finOrderList += Order(order.id, order.timestamp, itemList.toList)
+      }
 
     } catch {
       case e: Exception => e.printStackTrace()
 
-    } finally
+    } finally {
+      conn.close()
+
+    }
+    finOrderList.toList
   }
 
 

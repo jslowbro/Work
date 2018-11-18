@@ -44,7 +44,7 @@ class APIController @Inject()(cc: ControllerComponents, af: AssetsFinder, dbo: D
 
   def getListOfOrders() = Action {
     //TODO get list from DBO
-    val items =  List(Item("Sam",20,"S","BLUE"),
+    /*val items =  List(Item("Sam",20,"S","BLUE"),
       Item("Sam",20,"S","BLUE"),
       Item("Sam",20,"S","BLUE"),
       Item("Sam",20,"S","BLUE"))
@@ -57,7 +57,8 @@ class APIController @Inject()(cc: ControllerComponents, af: AssetsFinder, dbo: D
       Order(2, timestampString,items),
       Order(3, timestampString,items),
       Order(4, timestampString,items)
-    )
+    )*/
+    val list = dbo.getOrderList
     val json = Json.toJson(list)
     Ok(json)
   }
@@ -67,7 +68,6 @@ class APIController @Inject()(cc: ControllerComponents, af: AssetsFinder, dbo: D
       val json  = request.body.asJson.get
       val list: List[Item] = json.as[List[Item]]
       dbo.postItems(list)
-
       Ok
   }
 
