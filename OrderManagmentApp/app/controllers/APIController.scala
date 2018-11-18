@@ -78,8 +78,12 @@ class APIController @Inject()(cc: ControllerComponents, af: AssetsFinder, dbo: D
 
   }
 
-  def upateStockInfo() = {
-    TODO
+  def upateStockInfo() = Action { implicit request =>
+    //parsing Json to a list
+    val json = request.body.asJson.get
+    val list: List[StockItem] = json.as[List[StockItem]]
+    dbo.updateStock(list)
+    Ok
   }
 
 }

@@ -30,6 +30,9 @@ GET     /showOrderForm              controllers.HomeController.showOrderForm()
 + nocsrf
 POST    /postitems                  controllers.APIController.postListOfItems()
 
++ nocsrf
+POST    /updateStock                controllers.APIController.upateStockInfo()
+
 GET     /getStock                   controllers.APIController.getStock()
 
 #List of Orders Routes
