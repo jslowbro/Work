@@ -22,12 +22,20 @@
             }
         </style>
     </head>
-
     <body>
 
         <div ng-app="ShowOrdersApp" ng-controller="mainCtrl" class="container">
+            <div class="JumboTron" style="background-color: lightcyan; padding: 10px">
+                <h1> View Previous Orders </h1>
+                <p> Using this view you can view all of the previous orders. </p>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:history.back()"> Back to previous page </a>
+                    </li>
+                </ul>
+            </div>
             <br><br>
-            <button ng-click="getOrders()"> Show Orders </button>
+            <button class="btn btn-primary" ng-click="getOrders()"> Show Orders </button>
             <br><br>
             <table>
                 <tr>

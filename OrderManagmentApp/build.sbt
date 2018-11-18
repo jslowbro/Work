@@ -2,7 +2,7 @@ name := """OrderManagmentApp"""
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala, PlayEbean)
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 
 resolvers += Resolver.sonatypeRepo("snapshots")
@@ -19,10 +19,5 @@ libraryDependencies += filters
 libraryDependencies ++= Seq(evolutions, jdbc)
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.24"
 
-/*libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.8.0-SNAPSHOT"
-
-libraryDependencies += ehcache*/
-
-/*resolvers += "SQLite-JDBC Repository" at "https://oss.sonatype.org/content/repositories/snapshots"*/
 
 

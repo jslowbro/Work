@@ -28,14 +28,20 @@
     <body>
 
         <div ng-app="OrderFormApp" ng-controller="mainCtrl" class="container">
+            <div class="JumboTron" style="background-color: lightcoral; padding: 10px">
+                <h1> Place an order </h1>
+                <p> Using this view you choose the desired items and place an order. </p>
+                    <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/showlistOfOrders"> See all orders </a>
+                    </li>
+                    </ul>
+            </div>
             <div class="row">
-                <div class="col-sm-4" style="background-color:lightblue;">
+                <div class="col-sm-4" style="background-color:blanchedalmond;padding: 10px">
+                    <label style="font-size: 20px"> Choose an Item </label>
                     <form name="myForm">
-                        @*<p> Name: <br>
-                        <input type="text" ng-model="user.name">
-                        <span style="color:red" ng-show="myForm.user.name.$dirty && myForm.user.name.$invalid">
-                        <span ng-show="myForm.user.name.$error.required">Username is required.</span></span><br>
-                        </p>*@
+
                         <p>Name :<br>
                         <input type="text" name="name" ng-model="name" ng-pattern="nameRegex" required><br>
                             <span style="color:red" ng-show="myForm.name.$invalid">
@@ -62,13 +68,14 @@
                         <br><br>
                         <img ng-src="@routes.Assets.versioned("images/item_configs/{{sizeValue}}-{{colorValue}}.png")" alt="SIZE-COLOR">
                         <br><br>
-                        <button ng-click="addItem()" ng-disabled="canAddItem() || myForm.name.$invalid || myForm.age.$invalid"> Add Item </button>
+                        <button class="btn btn-success" ng-click="addItem()" ng-disabled="canAddItem() || myForm.name.$invalid || myForm.age.$invalid"> Add Item </button>
                         <br><br>
 
 
                     </form>
                 </div>
-                <div class="col-sm-4" style="background-color:blanchedalmond;">
+                <div class="col-sm-4" style=" background-color:lightcyan; padding: 10px  ">
+                    <label style="font-size: 20px"> Your Order </label>
                     <table>
                         <col>
                         <colgroup span="4"></colgroup>
@@ -89,9 +96,9 @@
                         </tr>
                     </table>
                     <br><br>
-                    <button ng-click="sendData()" ng-disabled="canSendData()"> Send Order </button>
+                    <button class="btn btn-primary" ng-click="sendData()" ng-disabled="canSendData()"> Send Order </button>
                 </div>
-                <div class="col-sm-4" style="background-color:lightgreen;">
+                <div class="col-sm-4" style="background-color:lightgreen; padding: 10px">
                     <label style="font-size: 20px"> Items In Stock </label>
                     <table>
                         <col>

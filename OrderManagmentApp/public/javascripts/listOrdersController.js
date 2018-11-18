@@ -20,13 +20,12 @@ app.controller('mainCtrl', function($scope, $http) {
         };
         //send request
         $http(req).then(function(response){
-            console.log("Successful GET Request");
-            console.log(response.data);
-            $scope.orderlist = response.data
+            $scope.orderlist =  response.data;
         }, function(){
-            console.log("Failed GET Request")
+            alert("Cannot access database")
         });
     };
+
 
 
 });

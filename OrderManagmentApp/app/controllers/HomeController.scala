@@ -26,7 +26,7 @@ class HomeController @Inject()(cc: ControllerComponents, af: AssetsFinder) (impl
 
 
   def showOrderForm() = Action {
-    Ok(views.html.orderManagment.orderFormDemo())
+    Ok(views.html.orderManagment.orderForm())
   }
 
 

@@ -18,7 +18,6 @@ class DBO @Inject()(db: Database, val controllerComponents: ControllerComponents
   val password = ""
 
 
-
   def postItems(list: List[Item]) = {
     val conn = db.getConnection()
 

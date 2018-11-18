@@ -89,7 +89,6 @@ app.controller('mainCtrl', function($scope, $http) {
         $http(req2).then(function(){
         }, function(){
             alert("Cannot send order to the Server")
-
         });
         //clear items since they have been sent
         $scope.itemlist = [];
@@ -107,6 +106,7 @@ app.controller('mainCtrl', function($scope, $http) {
         }
         return 0;
     }
+
     $scope.canAddItem = function () {
         var index = getStockId($scope.sizeValue,$scope.colorValue);
         return $scope.stock[index].quantity === 0
