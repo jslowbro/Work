@@ -2,31 +2,9 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-# An example controller showing how to use dependency injection
-GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
-GET     /message                    controllers.AsyncController.message
-
-
-
-# Actually some important code
-
-
-
-GET     /items                      controllers.HomeController.items()
-
-
-
-
-+ nocrsf
-GET     /listitems2                 controllers.HomeController.listItems2()
-
-GET     /createItem                 controllers.HomeController.createItemJson()
 
 #Order Form Routes
-GET     /showOrderForm              controllers.HomeController.showOrderForm()
+GET     /                           controllers.HomeController.showOrderForm()
 + nocsrf
 POST    /postitems                  controllers.APIController.postListOfItems()
 
@@ -39,10 +17,6 @@ GET     /getStock                   controllers.APIController.getStock()
 GET     /showlistOfOrders           controllers.HomeController.showListOfOrders()
 
 GET     /getListOfOrders            controllers.APIController.getListOfOrders()
-
-GET     /getListOfItems/:id         controllers.APIController.getListOfItems(id: Int)
-
-#GET     /main.js                    controllers.HomeController.getmainJs()
 
 
 

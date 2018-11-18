@@ -19,26 +19,6 @@ class DBO @Inject()(db: Database, val controllerComponents: ControllerComponents
 
 
 
-
-  def helloWorld = {
-    val conn = db.getConnection()
-
-    try{
-      val statement = conn.createStatement()
-      val rs = statement.executeQuery("SELECT * FROM items")
-
-      while(rs.next()){
-        val item: Item = Item(rs.getString("name"), rs.getInt("age"), rs.getString("size"), rs.getString("color"))
-        println(item)
-      }
-    } catch {
-      case e: Exception => e.printStackTrace()
-    } finally {
-      conn.close()
-    }
-
-  }
-
   def postItems(list: List[Item]) = {
     val conn = db.getConnection()
 
