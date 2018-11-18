@@ -46,10 +46,10 @@ class APIController @Inject()(cc: ControllerComponents, af: AssetsFinder, dbo: D
     val list = dbo.getOrderList
     val json = Json.toJson(list)
 
-    //TODO Testing
+    /*//TODO Testing
 
     val stockItemList: List[StockItem] = List(StockItem(1,"S","RED",500), StockItem(2,"XL","BLUE",500))
-    dbo.updateStock(stockItemList)
+    dbo.updateStock(stockItemList)*/
 
 
     Ok(json)

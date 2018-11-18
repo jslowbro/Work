@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <title> Order Form </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <title> New Order </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
         <style>
             table, th , td  {
                 border: 1px solid grey;
@@ -21,44 +26,54 @@
 
     <body>
 
-        <div ng-app="OrderFormApp" ng-controller="mainCtrl">
-            <form novalidate>
-                Name:<br>
-                <input type="text" ng-model="user.name"><br>
-                Age:<br>
-                <input type="number" ng-model="user.age"><br>
-                Color: <br>
-                <select ng-model="colorValue" ng-options="x for x in colors"> </select><br>
-                Size : <br>
-                <input ng-model="sizeValue" type="radio" name="size" id="s" value="S" > S
-                <input ng-model="sizeValue" type="radio" name="size" id="m" value="M"> M
-                <input ng-model="sizeValue" type="radio" name="size" id="l" value="L"> L
-                <input ng-model="sizeValue" type="radio" name="size" id="xl" value="XL" > XL
-                <br><br>
-                <button ng-click="addItem()">Add Item</button>
-                <br><br>
-                <button ng-click="testData()">Test Data</button>
-                <br><br>
-                <button ng-click="sendData()"> Send Request </button>
-                <br><br>
-            </form>
+        <div ng-app="OrderFormApp" ng-controller="mainCtrl" class="container">
+            <div class="row">
+                <div class="col-sm-6" style="background-color:lightblue;">
+                    <form>
+                        Name:<br>
+                        <input type="text" ng-model="user.name"><br>
+                        Age:<br>
+                        <input type="number" ng-model="user.age"><br>
+                        Color: <br>
+                        <select ng-model="colorValue" ng-options="x for x in colors"> </select><br>
+                        Size : <br>
+                        <input ng-model="sizeValue" type="radio" name="size" id="s" value="S" > S
+                        <input ng-model="sizeValue" type="radio" name="size" id="m" value="M"> M
+                        <input ng-model="sizeValue" type="radio" name="size" id="l" value="L"> L
+                        <input ng-model="sizeValue" type="radio" name="size" id="xl" value="XL" > XL
+                        <br><br>
+                        <img ng-src="@routes.Assets.versioned("images/item_configs/{{sizeValue}}-{{colorValue}}.png")" alt="SIZE-COLOR">
+                        <br><br>
+                        <button ng-click="addItem()">Add Item</button>
+                        <br><br>
+                        <button ng-click="sendData()"> Send Request </button>
+                        <br><br>
 
-            <table>
-                <tr>
-                    <th> Name </th>
-                    <th> Age </th>
-                    <th> Color </th>
-                    <th> Size </th>
-                </tr>
-                <tr ng-repeat="x in itemlist">
-                    <td>{{x.name}}</td>
-                    <td>{{x.age}}</td>
-                    <td>{{x.color}}</td>
-                    <td>{{x.size}}</td>
-                </tr>
-            </table>
-
-
+                    </form>
+                </div>
+                <div class="col-sm-6" style="background-color:blanchedalmond;">
+                    <table>
+                        <col>
+                        <colgroup span="4"></colgroup>
+                        <tr>
+                            @*<td rowspan="4"></td>*@
+                            <th colspan="4" scope="colgroup"> Shopping Basket </th>
+                        </tr>
+                        <tr>
+                            <th> Name </th>
+                            <th> Age </th>
+                            <th> Color </th>
+                            <th> Size </th>
+                        </tr>
+                        <tr ng-repeat="x in itemlist">
+                            <td>{{x.name}}</td>
+                            <td>{{x.age}}</td>
+                            <td>{{x.color}}</td>
+                            <td>{{x.size}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
         @*<link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/orderForm-table.css")">*@
         <script src="@routes.Assets.versioned("javascripts/orderFormController.js")"></script>

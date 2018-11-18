@@ -3,7 +3,6 @@ var app = angular.module('OrderFormApp', []);
 app.controller('mainCtrl', function($scope, $http) {
 
 
-    //initializing all the data, might switch to pulling it from DB later
     $scope.colors = ["RED", "BLUE", "GREEN"];
     $scope.colorValue = "RED";
     $scope.sizeList = ["S", "M", "L", "XL"];
