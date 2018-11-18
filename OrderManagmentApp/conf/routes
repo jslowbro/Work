@@ -27,9 +27,10 @@ GET     /createItem                 controllers.HomeController.createItemJson()
 
 #Order Form Routes
 GET     /showOrderForm              controllers.HomeController.showOrderForm()
-
 + nocsrf
 POST    /postitems                  controllers.APIController.postListOfItems()
+
+GET     /getStock                   controllers.APIController.getStock()
 
 #List of Orders Routes
 GET     /showlistOfOrders           controllers.HomeController.showListOfOrders()

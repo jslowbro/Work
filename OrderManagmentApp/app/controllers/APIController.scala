@@ -14,11 +14,16 @@ class APIController @Inject()(cc: ControllerComponents, af: AssetsFinder, dbo: D
 
   //handling Jsons of
 
-  implicit val jsonwriter = Json.writes[Item]
+  implicit val jsonwriterItem = Json.writes[Item]
 
-  implicit val jsonreader = Json.reads[Item]
+  implicit val jsonreaderItem = Json.reads[Item]
 
   implicit val jsonwriterOrder = Json.writes[Order]
+
+  implicit val jsonwriterStockItem = Json.writes[StockItem]
+
+  implicit val jsonreaderStockItem = Json.reads[StockItem]
+
 
 
   //TODO DBOOOOOOOOOOOOOOOOOOOOOOOO
@@ -65,8 +70,12 @@ class APIController @Inject()(cc: ControllerComponents, af: AssetsFinder, dbo: D
 
   //TODO Api's for stock managment
 
-  def getStock() = {
-    TODO
+  def getStock() = Action {
+    val list = dbo.getStock
+    val json = Json.toJson(list)
+
+    Ok(json)
+
   }
 
   def upateStockInfo() = {

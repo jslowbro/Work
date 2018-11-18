@@ -46,7 +46,7 @@
                         <br><br>
                         <button ng-click="addItem()">Add Item</button>
                         <br><br>
-                        <button ng-click="sendData()"> Send Request </button>
+                        <button ng-click="sendData()" ng-disabled="canSendData()"> Send Order </button>
                         <br><br>
 
                     </form>
@@ -72,10 +72,56 @@
                             <td>{{x.size}}</td>
                         </tr>
                     </table>
+                    <br><br>
+                    <table>
+                        <col>
+                        <colgroup span="3"></colgroup>
+                        <thead>
+                        <tr>
+                            <th rowspan="2" colspan="2" style="visibility: hidden"></th>
+                            <th align="center" colspan="3" scope="colgroup" > Color </th>
+
+                        </tr>
+                        <tr>
+                            <th scope="col"> RED </th>
+                            <th scope="col"> GREEN </th>
+                            <th scope="col"> BLUE </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th rowspan="4" scope="rowgroup" style="transform: rotate(270deg);"> Size </th>
+                                <th scope="row"> S </th>
+                                <td> {{stock[4].quantity}} </td>
+                                <td> {{stock[8].quantity}} </td>
+                                <td> {{stock[0].quantity}} </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"> M </th>
+                                <td> {{stock[5].quantity}} </td>
+                                <td> {{stock[9].quantity}} </td>
+                                <td> {{stock[1].quantity}} </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"> L </th>
+                                <td> {{stock[6].quantity}} </td>
+                                <td> {{stock[10].quantity}} </td>
+                                <td> {{stock[2].quantity}} </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"> XL </th>
+                                <td> {{stock[7].quantity}} </td>
+                                <td> {{stock[11].quantity}} </td>
+                                <td> {{stock[3].quantity}} </td>
+                            </tr>
+                        </tbody>
+
+
+
+                    </table>
                 </div>
             </div>
         </div>
-        @*<link rel="stylesheet" href="@routes.Assets.versioned("stylesheets/orderForm-table.css")">*@
         <script src="@routes.Assets.versioned("javascripts/orderFormController.js")"></script>
 
     </body>

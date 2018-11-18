@@ -8,14 +8,11 @@ app.controller('mainCtrl', function($scope, $http) {
     $scope.sizeList = ["S", "M", "L", "XL"];
     $scope.sizeValue = "S";
     $scope.master = {name: "", age: ""};
-    $scope.itemlist = [];
 
-    $scope.testData = function () {
-        console.log($scope.colorValue);
-        console.log($scope.sizeValue);
-        console.log($scope.user.name);
-        console.log($scope.user.age);
-    };
+    $scope.itemlist = [];
+    $scope.stock = [];
+
+
 
     $scope.addItem = function() {
         //pushing item on the list
@@ -29,7 +26,24 @@ app.controller('mainCtrl', function($scope, $http) {
         $scope.user = angular.copy($scope.master);
     };
 
+    $scope.getStock = function () {
+        var req = {
+            method: 'GET',
+            url: 'http://localhost:9000/getStock',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        $http(req).then(function(response){
+            console.log("Successful GET Request");
+            $scope.stock = response.data;
+            console.log($scope.stock)
+        }, function(){
+            console.log("Failed GET Request")
+        });
+    };
 
+    $scope.getStock();
 
     $scope.sendData = function () {
         //setting up the request
@@ -52,6 +66,8 @@ app.controller('mainCtrl', function($scope, $http) {
         $scope.itemlist = [];
     };
 
-
+    $scope.canSendData = function () {
+        return $scope.itemlist.length === 0
+    };
 
 });

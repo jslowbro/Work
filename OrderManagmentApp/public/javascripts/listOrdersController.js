@@ -7,7 +7,6 @@ app.controller('mainCtrl', function($scope, $http) {
 
     $scope.orderlist = [];
 
-    $scope.colors = ["Sample1","Sample2","Sample3","Sample4"];
 
     $scope.getOrders = function () {
         //prep the request
