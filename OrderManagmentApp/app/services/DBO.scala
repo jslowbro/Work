@@ -3,7 +3,7 @@ package services
 import java.sql._
 
 import javax.inject.Inject
-import models.{Item, Order}
+import models.{Item, Order, StockItem}
 import play.api.db._
 import play.api.mvc.{BaseController, ControllerComponents}
 
@@ -11,37 +11,14 @@ import scala.collection.mutable.ListBuffer
 
 class DBO @Inject()(db: Database, val controllerComponents: ControllerComponents) extends BaseController {
 
-  /*val list: List[Item] = new ArrayList[Item]*/
+
   val url = "jdbc:mysql://localhost/shoesdb"
   val driver = "com.mysql.jdbc.Driver"
   val username = "root"
   val password = ""
 
 
-  //loadFromMySQLDatabase
 
- /* def loadFromMySQLDatabase = {
-
-    val connection: Connection = DriverManager.getConnection(url, username, password)
-    try {
-      Class.forName(driver)
-      val statement = connection.createStatement
-      val rs = statement.executeQuery("SELECT * FROM items")
-      while (rs.next) {
-        var item: Item = Item(rs.getString("name"), rs.getInt("age"), rs.getString("size"), rs.getString("color"))
-        list.add(item)
-
-      }
-
-    } catch {
-      case e: Exception => e.printStackTrace
-        println("Couldn't access database")
-    } finally {
-      connection.close()
-    }
-    println(list)
-
-  }*/
 
   def helloWorld = {
     val conn = db.getConnection()
@@ -97,11 +74,10 @@ class DBO @Inject()(db: Database, val controllerComponents: ControllerComponents
   }
 
   def getOrderList: List[Order] = {
+    //init
     val conn = db.getConnection()
     val tempOrderList = ListBuffer[Order]()
     val finOrderList = ListBuffer[Order]()
-
-
 
     try {
       //getting all Orders
@@ -131,7 +107,7 @@ class DBO @Inject()(db: Database, val controllerComponents: ControllerComponents
       }
 
     } catch {
-      case e: Exception => e.printStackTrace()
+      case e: SQLException => e.printStackTrace()
 
     } finally {
       conn.close()
@@ -141,7 +117,50 @@ class DBO @Inject()(db: Database, val controllerComponents: ControllerComponents
   }
 
 
+  def getStock: List[StockItem] = {
+    val conn = db.getConnection()
+    val stockList: ListBuffer[StockItem] = ListBuffer[StockItem]()
 
+    try {
+      val query = "SELECT  * FROM `stock`"
+      val statement = conn.createStatement()
+      val resultSet = statement.executeQuery(query)
+      while(resultSet.next()){
+        val item = StockItem(resultSet.getInt("id"),resultSet.getString("size"), resultSet.getString("color"), resultSet.getInt("quantity"))
+        stockList += item
+      }
+    } catch {
+      case e: SQLException => e.printStackTrace()
+    } finally {
+      conn.close()
+    }
+
+    stockList.toList
+  }
+
+
+  def updateStock(list: List[StockItem]) = {
+    val conn = db.getConnection()
+    try {
+      //updating every stockitem's quantity
+      for (stockItem <- list) {
+        //prepping the statement
+        val prepQuery = "UPDATE stock SET quantity = ? WHERE size=? AND color=?"
+        val prepStmnt = conn.prepareStatement(prepQuery)
+        prepStmnt.setInt(1, stockItem.quantity)
+        prepStmnt.setString(2, stockItem.size)
+        prepStmnt.setString(3, stockItem.color)
+        //executing the statement
+        prepStmnt.execute()
+      }
+
+    } catch {
+      case e: SQLException => e.printStackTrace()
+    } finally {
+      conn.close()
+    }
+
+  }
 
 
 }
