@@ -106,10 +106,27 @@ app.controller('mainCtrl', function($scope, $http) {
         }
         return 0;
     }
+    function getItemId(name, age, size, color) {
+        for(i=0; $scope.itemlist.length; i++){
+            if($scope.itemlist[i].name === name && $scope.itemlist[i].age === age && $scope.itemlist[i].size === size && $scope.itemlist[i].color === color){
+                return i;
+            }
+        }
+        return 0;
+    }
 
     $scope.canAddItem = function () {
         var index = getStockId($scope.sizeValue,$scope.colorValue);
         return $scope.stock[index].quantity === 0
     };
+
+    $scope.deleteItem = function (item) {
+        if(item === undefined) {
+            return null
+        } else {
+            $scope.itemlist.splice(getItemId(item.name, item.age , item.size, item.color))
+            $scope.stock[getStockId(item.size,item.color)].quantity = $scope.stock[getStockId(item.size,item.color)].quantity+1
+        }
+    }
 
 });

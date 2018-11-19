@@ -28,20 +28,19 @@
     <body>
 
         <div ng-app="OrderFormApp" ng-controller="mainCtrl" class="container">
-            <div class="JumboTron" style="background-color: lightcoral; padding: 10px; border-radius: 25px;">
+            <div class="JumboTron" style="background-color: 	#6fa17b; padding: 40px; border-radius: 25px;">
                 <h1> Place an order </h1>
                 <p> Using this view you choose the desired items and place an order. </p>
                     <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/showlistOfOrders"> See all orders </a>
+                        <a class="nav-link" href="/showlistOfOrders" style="border-radius: 10px; color: black; font-weight: bold" > See all orders </a>
                     </li>
                     </ul>
-            </div>
             <div class="row">
-                <div class="col-sm-4" style="background-color:blanchedalmond;padding: 10px; border-radius: 25px;">
+                <div class="col-sm-4" style="background-color:	#e7d6b2;padding: 10px; border-radius: 25px;">
+                    <div class="classWithPad">
                     <label style="font-size: 20px"> Choose an Item </label>
                     <form name="myForm">
-
                         <p>Name :<br>
                         <input type="text" name="name" ng-model="name" ng-pattern="nameRegex" required><br>
                             <span style="color:red" ng-show="myForm.name.$invalid">
@@ -49,7 +48,6 @@
                                 <span ng-show="myForm.name.$invalid"> Name must: be a single word, start with a capital letter, have 2-30 characters, no numbers or special characters </span>
                             </span>
                         </p>
-
                         <p> Age: <br>
                         <input type="number" name="age" ng-model="age" min="{{minAge}}" max="{{maxAge}}" required><br>
                             <span style="color:red" ng-show="myForm.age.$invalid">
@@ -57,7 +55,6 @@
                                 <span ng-show="myForm.age.$invalid"> Age must be between 18-100 </span>
                             </span>
                         </p>
-
                         Color: <br>
                         <select ng-model="colorValue" ng-options="x for x in colors"> </select><br>
                         Size : <br>
@@ -70,44 +67,46 @@
                         <br><br>
                         <button class="btn btn-success" ng-click="addItem()" ng-disabled="canAddItem() || myForm.name.$invalid || myForm.age.$invalid"> Add Item </button>
                         <br><br>
-
-
                     </form>
+                    </div>
                 </div>
-                <div class="col-sm-4" style=" background-color:lightcyan; padding: 10px; border-radius: 25px;  ">
+                <div class="col-sm-4" style=" background-color:		#ccd9ff; padding: 10px; border-radius: 25px;  ">
+                    <div class="classWithPad">
                     <label style="font-size: 20px"> Your Order </label>
-                    <table>
+                    <table class="table table-striped">
                         <col>
-                        <colgroup span="4"></colgroup>
+                        <colgroup span="5"></colgroup>
                         <tr>
-                            <th colspan="4" scope="colgroup"> Shopping Cart </th>
+                            <th colspan="5" scope="colgroup"> Shopping Cart </th>
                         </tr>
                         <tr>
                             <th> Name </th>
                             <th> Age </th>
                             <th> Color </th>
                             <th> Size </th>
+                            <th> Action </th>
                         </tr>
                         <tr ng-repeat="x in itemlist">
                             <td>{{x.name}}</td>
                             <td>{{x.age}}</td>
                             <td>{{x.color}}</td>
                             <td>{{x.size}}</td>
+                            <td><button class="btn btn-danger" ng-click="deleteItem(x)" > Delete </button></td>
                         </tr>
                     </table>
                     <br><br>
                     <button class="btn btn-primary" ng-click="sendData()" ng-disabled="canSendData()"> Send Order </button>
+                    </div>
                 </div>
-                <div class="col-sm-4" style="background-color:lightgreen; padding: 10px; border-radius: 25px;">
+                <div class="col-sm-4" style="background-color:		#707a8a; padding: 10px; border-radius: 25px;">
                     <label style="font-size: 20px"> Items In Stock </label>
-                    <table
+                    <table>
                         <col>
                         <colgroup span="3"></colgroup>
                         <thead>
                             <tr>
                                 <th rowspan="2" colspan="2" style="visibility: hidden"></th>
                                 <th align="center" colspan="3" scope="colgroup" > Color </th>
-
                             </tr>
                             <tr>
                                 <th scope="col"> RED </th>
@@ -145,7 +144,7 @@
 
                     </table>
                 </div>
-
+            </div>
             </div>
         </div>
         <script src="@routes.Assets.versioned("javascripts/orderFormController.js")"></script>
